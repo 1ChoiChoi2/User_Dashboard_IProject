@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 .user-dashboard__container {
   height: 110vh;
   width: 100vw;
@@ -25,4 +29,21 @@
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.users-setting__add-button {
+  margin: 10px;
+}
+
+.users-setting__table {
+  width: 100%;
+  padding-top: 10px;
+}
+
+.users-setting__additional-options {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: right;
+  margin-right: 10%;
 }
