@@ -23,7 +23,7 @@ function App() {
       <Layout className="user-dashboard__container">
         <Header className="user-dashboard__header">User Dashboard</Header>
         <Layout>
-          <Sider theme="dark">
+          <Sider theme="light" style={{ backgroundColor: "#FF6F61" }}>
             <Menu
               className="user-dashboard__menu"
               onClick={({ key }) => handleMenuChange(key)}

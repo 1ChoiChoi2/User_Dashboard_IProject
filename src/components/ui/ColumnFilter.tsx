@@ -9,8 +9,6 @@ interface Props {
 }
 
 const ColumnFilter: React.FC<Props> = ({ columns, setColumns }) => {
-
-
   const [visibleColumns, setVisibleColumns] = useState<string[]>(
     columns.map((column) => column.key)
   );
@@ -20,12 +18,14 @@ const ColumnFilter: React.FC<Props> = ({ columns, setColumns }) => {
       ? visibleColumns.filter((colKey) => colKey !== columnKey)
       : [...visibleColumns, columnKey];
 
-
     setVisibleColumns(updatedColumns);
 
-    setColumns(prev => prev.map(col => ({
-      ...col, hidden: !updatedColumns.includes(col.key)
-    })))
+    setColumns((prev) =>
+      prev.map((col) => ({
+        ...col,
+        hidden: !updatedColumns.includes(col.key),
+      }))
+    );
   };
 
   const items: MenuProps["items"] = [
@@ -44,9 +44,9 @@ const ColumnFilter: React.FC<Props> = ({ columns, setColumns }) => {
       label: <p style={{ textAlign: "center" }}>Reset</p>,
       key: "reset",
       onClick: () => {
-        setVisibleColumns(columns.map(col => col.key));
-        setColumns(columns.map(col => ({ ...col, hidden: false })))
-      }
+        setVisibleColumns(columns.map((col) => col.key));
+        setColumns(columns.map((col) => ({ ...col, hidden: false })));
+      },
     },
   ];
 

@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { User } from "../UserModel";
 import { Button, Form, FormInstance } from "antd";
-import UserInput from "./ui/UserInput";
-import UserRadioGroup from "./ui/UserRadioGroup";
-import UserAvatar from "./ui/UserAvatar";
+import UserInput from "./ui/userInput/UserInput";
+import UserRadioGroup from "./ui/userInput/UserRadioGroup";
+import UserAvatar from "./ui/userInput/UserAvatar";
 
 interface Props {
   form: FormInstance<User>;

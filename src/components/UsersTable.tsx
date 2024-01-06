@@ -35,7 +35,14 @@ const UsersTable: React.FC<Props> = ({ users }) => {
     { title: "Phone", dataIndex: "phone", key: "phone" },
   ];
 
-  return <Table dataSource={users} columns={columns}></Table>;
+  return (
+    <Table
+      scroll={{ x: 600, y: 600 }}
+      pagination={false}
+      dataSource={users}
+      columns={columns}
+    ></Table>
+  );
 };
 
 export default UsersTable;

@@ -9,19 +9,19 @@ body {
 }
 
 .user-dashboard__container {
-  height: 110vh;
+  height: 100vh;
   width: 100vw;
 }
 
 .user-dashboard__header {
-  background-color: #001529;
+  background-color: #FF6F61;
   font-size: 20px;
   color: white;
   font-weight: bold;
 }
 
 .user-dashboard__menu {
-  background-color: #001529;
+  background-color: #FF6F61;
   color: white;
 }
 
@@ -41,9 +41,11 @@ body {
 }
 
 .users-setting__additional-options {
+  color: #FF6F61;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 16px;
   justify-content: right;
-  margin-right: 10%;
+  margin-right: 4%;
+  padding: 10px;
 }

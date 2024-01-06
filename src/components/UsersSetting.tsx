@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { User } from "../UserModel";
 import { Avatar, Button, Form, Modal, Table } from "antd";
-import { FaTrash, FaEdit, FaDownload } from "react-icons/fa";
-import { MdOutlineZoomOutMap } from "react-icons/md";
+import { FaTrash, FaEdit } from "react-icons/fa";
 import ColumnFilter from "./ui/ColumnFilter";
+import TableFullScreen from "./ui/TableFullScreen";
+import ExportTable from "./ui/ExportTable";
 import UserForm from "./UserForm";
 
 interface Props {
@@ -98,11 +99,16 @@ const UsersSetting: React.FC<Props> = ({ users, setUsers }) => {
       </Button>
       <div className="users-setting__table">
         <div className="users-setting__additional-options">
-          <FaDownload />
-          <MdOutlineZoomOutMap />
+          <ExportTable users={users}/>
+          <TableFullScreen containerSelector=".users-setting__table" />
           <ColumnFilter columns={columns} setColumns={setColumns} />
         </div>
-        <Table dataSource={users} columns={columns.filter(column => !column.hidden)}></Table>
+        <Table
+          dataSource={users}
+          columns={columns.filter((column) => !column.hidden)}
+          scroll={{ x: 600, y: 500 }}
+          pagination={false}
+        ></Table>
       </div>
       <Modal
         open={isCreatingUser || isEditingUser}
