@@ -1,6 +1,6 @@
 import React from "react";
 import { User } from "../UserModel";
-import { Avatar, Table } from "antd";
+import { Avatar, Table, UploadFile } from "antd";
 
 interface Props {
   users: User[];
@@ -13,7 +13,9 @@ const UsersTable: React.FC<Props> = ({ users }) => {
       title: "Avatar",
       dataIndex: "avatar",
       key: "avatar",
-      render: (record: string) => <Avatar src={record} />,
+      render: (record: UploadFile[]) => (
+        <Avatar src={record[0].thumbUrl}  />
+      ),
     },
     {
       title: "Name",
@@ -35,7 +37,12 @@ const UsersTable: React.FC<Props> = ({ users }) => {
     { title: "Phone", dataIndex: "phone", key: "phone" },
   ];
 
-  return <Table dataSource={users} columns={columns}></Table>;
+  return (
+    <Table
+      dataSource={users}
+      columns={columns}
+    ></Table>
+  );
 };
 
 export default UsersTable;
