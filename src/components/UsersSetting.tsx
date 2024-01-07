@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { User } from "../UserModel";
-import { Avatar, Button, Form, Modal, Table } from "antd";
+import { Avatar, Button, Form, Modal, Table, UploadFile } from "antd";
 import { FaTrash, FaEdit } from "react-icons/fa";
 import ColumnFilter from "./ui/ColumnFilter";
 import TableFullScreen from "./ui/TableFullScreen";
@@ -17,6 +17,8 @@ const UsersSetting: React.FC<Props> = ({ users, setUsers }) => {
   const [isEditingUser, setIsEditingUser] = useState<boolean>(false);
   const [isCreatingUser, setIsCreatingUser] = useState<boolean>(false);
   const [editUser, setEditUser] = useState<User | null>(null);
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [isValidForm, setIsValidForm] = useState<boolean>(false);
 
   const [columns, setColumns] = useState<any[]>([
     { title: "Id", dataIndex: "key", key: "key" },
@@ -24,7 +26,9 @@ const UsersSetting: React.FC<Props> = ({ users, setUsers }) => {
       title: "Avatar",
       dataIndex: "avatar",
       key: "avatar",
-      render: (record: string) => <Avatar src={record} />,
+      render: (record: UploadFile[]) => (
+        <Avatar src={record[0].thumbUrl || fileList[0].thumbUrl} />
+      ),
     },
     {
       title: "Name",
@@ -66,10 +70,12 @@ const UsersSetting: React.FC<Props> = ({ users, setUsers }) => {
   function handleCreate() {
     const newUser = form.getFieldsValue();
     const newUserKey = Date.now();
+    newUser.avatar = fileList;
 
     form
       .validateFields()
       .then(() => {
+        setIsValidForm(true);
         setUsers((prev) => [...prev, { ...newUser, key: newUserKey }]);
 
         // Reset
@@ -77,12 +83,16 @@ const UsersSetting: React.FC<Props> = ({ users, setUsers }) => {
 
         setIsCreatingUser(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setIsValidForm(false);
+        console.log(err);
+      });
   }
 
   function closeModal() {
     // Reset Form Feilds
     form.resetFields();
+    setFileList([]);
 
     setIsEditingUser(false);
     setIsCreatingUser(false);
@@ -99,15 +109,13 @@ const UsersSetting: React.FC<Props> = ({ users, setUsers }) => {
       </Button>
       <div className="users-setting__table">
         <div className="users-setting__additional-options">
-          <ExportTable users={users}/>
+          <ExportTable users={users} />
           <TableFullScreen containerSelector=".users-setting__table" />
           <ColumnFilter columns={columns} setColumns={setColumns} />
         </div>
         <Table
           dataSource={users}
           columns={columns.filter((column) => !column.hidden)}
-          scroll={{ x: 600, y: 500 }}
-          pagination={false}
         ></Table>
       </div>
       <Modal
@@ -122,6 +130,10 @@ const UsersSetting: React.FC<Props> = ({ users, setUsers }) => {
           setUsers={setUsers}
           isEditingUser={isEditingUser}
           setIsEditingUser={setIsEditingUser}
+          fileList={fileList}
+          setFileList={setFileList}
+          isValidForm={isValidForm}
+          setIsValidForm={setIsValidForm}
         />
       </Modal>
     </>
